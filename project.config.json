@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "myApp",
   "description": "微信小程序结课作业",
-  "appid": "touristappid",
+  "appid": "wx2f20ba12fefa263f",
   "setting": {
     "urlCheck": true,
     "es6": false,

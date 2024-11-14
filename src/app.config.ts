@@ -2,11 +2,11 @@ export default defineAppConfig({
   pages: [
     "pages/index/index",
     "pages/user/index",
-    "pages/address/address-list",
-    "pages/address/address-save",
-    "pages/order/order-create",
-    "pages/order/order-list",
-    "pages/order/order-details",
+    // "pages/address/address-list",
+    // "pages/address/address-save",
+    // "pages/order/order-create",
+    // "pages/order/order-list",
+    // "pages/order/order-details",
   ],
   window: {
     backgroundTextStyle: 'light',

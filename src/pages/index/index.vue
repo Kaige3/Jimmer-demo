@@ -10,7 +10,7 @@ import './index.scss'
 
 export default {
   setup () {
-    const msg = ref('Hello world')
+    const msg = ref('Hello kaige')
     return {
       msg
     }
