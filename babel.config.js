@@ -5,7 +5,7 @@ module.exports = {
     ['taro', {
       framework: 'vue3',
       ts: true,
-      compiler: 'webpack5',
+      // compiler: 'webpack5',
     }]
   ]
 }

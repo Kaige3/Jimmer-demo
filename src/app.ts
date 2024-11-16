@@ -1,10 +1,7 @@
 
 import { createApp } from 'vue'
 import { createPinia } from "pinia"
-
-import './app.scss'
-
-
+import { Button } from "@nutui/nutui-taro"
 
 const App = createApp({
   onShow () { },

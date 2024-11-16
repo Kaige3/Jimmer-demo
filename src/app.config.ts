@@ -27,17 +27,17 @@ export default defineAppConfig({
         text:"首页"
       },{
         pagePath:"pages/user/index",
-        iconPath:"assets/icons/home.png",
-        selectedIconPath:"assets/icons/home-active.png",
+        iconPath:"assets/icons/user.png",
+        selectedIconPath:"assets/icons/user-active.png",
         text:"我的"
       }
     ]
   },
-  plugins:{
-    chooseLocation:{
-      version:"1.1.1",
+  plugins: {
+    chooseLocation: {
+      version: "1.1.1",
       provider: "wx76a9a06e5b4e693e",
-    }
+    },
   },
   permission:{
     "scope.userLocation":{

@@ -1,7 +1,5 @@
 <template>
-  <div>
-    我的页面
-  </div>
+    <div>我的</div>
 </template>
 
 <script setup lang="ts">
