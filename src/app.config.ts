@@ -1,7 +1,7 @@
 export default defineAppConfig({
   pages: [
-    "pages/index/index",
     "pages/user/index",
+    "pages/index/index",
     // "pages/address/address-list",
     // "pages/address/address-save",
     // "pages/order/order-create",

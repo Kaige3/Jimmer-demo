@@ -9,5 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     NutTag: typeof import('@nutui/nutui-taro')['Tag']
     ProductCover: typeof import('./src/components/product/product-cover.vue')['default']
+    UserAvatar: typeof import('./src/components/user/user-avatar.vue')['default']
   }
 }
