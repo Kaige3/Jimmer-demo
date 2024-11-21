@@ -1,6 +1,8 @@
 <template>
+<div>
   <div class="product-dialog">
-    <nut-popup :visible="visible"
+    <nut-popup
+    :visible="visible"
     round
     pop-class="product-popup"
     >
@@ -10,14 +12,43 @@
           <image class="product-cover"
           :src="product.cover"
           :mode="'aspectFill'"
-           @update:visible="(value) => emit('update:visible', value)"
           >
           </image>
-        </div>
+          <!--名称  -->
+          <div class="product-name">{{ product.name }}</div>
+          <!-- 描述 -->
+          <div class="product-description">
+            {{ product.description }}
+          </div>
+          <!-- 规格 -->
+          <div class="attributes">
+            <div class="attribute-row"
+            :key="attribute.name"
+            v-for="attribute in product.attributes"
+            >
+              <!-- 第一列规格 -->
+               <div class="attribute-name">{{ attribute.name }}</div>
+               <!-- 规格对应的值 -->
+                <div class="valus">
+                  <div v-for="value in attribute.values" :key="value">
+                    {{ value }}
+                  </div>
+                </div>
+            </div>
+          </div>
+          <!-- 选中的规格 -->
+          <div class="choose">
+            <div class="values">
+              <span class="prefix">已选的规格：</span>
 
+            </div>
+          </div>
+        </div>
+        <nut-button @click="closeDialog">点我关闭模态框</nut-button>
       </scroll-view>
     </nut-popup>
   </div>
+</div>
 </template>
 
 <script setup lang="ts">
@@ -30,10 +61,20 @@ type Sku = ProductSkuFetcherDto["skuList"][0];
 type Attribute = ProductSkuFetcherDto["attributes"][0] &{
   activeValue : string;
 }
+
+
+// 设置一个flag用来向父组件传递模态框的值
+const visible = defineModel({
+  type:Boolean
+})
+// 关闭模态框的方法
+const closeDialog = () => {
+  visible.value = false; // 修改 visible，Vue 会自动通知父组件
+};
 // 接收父组件传递的数据
 const props = defineProps<{
   product: ProductSkuFetcherDto;
-  visible: boolean;
+  // visible: boolean;
 }>();
 
 // 向父组件传递的数据，
@@ -51,106 +92,14 @@ const activeSku = props.product.skuList[0];
 </script>
 
 <style lang="scss">
-.product-dialog {
+.product-dialog{
+
   .product-section {
     background-color: white;
     border-radius: 15px;
-    overflow: hidden;
-    width: 680px;
+    width: 600px;
     height: 1000px;
-
-    .product-cover {
-      // 封面和对话框一样宽，不留缝隙。这样看起来会比较好看。
-      width: 100%;
-      height: 750px;
-    }
-    .product-name {
-      font-size: 34px;
-      margin: 30px;
-      word-break: keep-all;
-    }
-
-    .product-description {
-      margin: 20px 30px;
-      // 描述的颜色要淡一些，透明度设置0.7和标题体现出差异。
-      color: rgba(black, 0.7);
-      // 字体也是一样设置小一些
-      font-size: 28px;
-    }
-
-    .attributes {
-      margin: 30px;
-      // 每个属性占一行
-      .attribute-row {
-        margin-top: 50px;
-
-        .attribute-name {
-          color: rgba($color: #000000, $alpha: 0.8);
-        }
-        // 属性值水平排列
-        .values {
-          display: flex;
-
-          .value {
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 10px;
-            margin-right: 30px;
-            border: 1px solid rgba(black, 0.1);
-            // 选中的属性值
-            &.active {
-              background-color: rgba(255, 209, 97, 0.7);
-              border: 2px solid rgb(234, 186, 69);
-            }
-          }
-        }
-      }
-    }
-
-    .choose {
-      margin-top: 40px;
-      padding: 20px 30px;
-      background-color: rgba(black, 0.05);
-      border: 1px solid rgba(black, 0.1);
-
-      .prefix {
-        color: rgba(black, 0.7);
-      }
-    }
-
-    .result {
-      padding: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      .total-price {
-        display: flex;
-        align-items: flex-end;
-
-        .price {
-          color: red;
-          font-size: 45px;
-          line-height: 40px;
-        }
-
-        .price-prefix {
-          color: red;
-        }
-      }
-
-      .add-cert {
-        background-color: rgba(255, 208, 95);
-        border-radius: 10px;
-        padding: 15px 30px;
-        display: flex;
-
-        .prefix {
-          font-weight: bold;
-          margin-right: 15px;
-        }
-      }
-    }
+    overflow: hidden;
   }
 }
 </style>

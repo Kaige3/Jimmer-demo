@@ -1,15 +1,16 @@
 <template>
 
 <!-- 弹出商品详情，以及sku -->
- <product-sku-dialog
+ <product-sku-dialog-copy
  v-if="chosenProduct"
  :key="chosenProduct.id"
  :product="chosenProduct"
-  v-model:visible="dialogVisible"
+  v-model="dialogVisible"
+   @addSku="handleAddSku"
  >
 
 
- </product-sku-dialog>
+ </product-sku-dialog-copy>
 
 
 <!-- 商品列表渲染 -->
@@ -24,12 +25,14 @@
 </template>
 
 <script setup lang="ts">
-import productSkuDialog from "@/components/product/product-sku-dialog.vue";
+import productSkuDialogCopy from "@/components/product/product-sku-dialog-copy.vue";
 import { ProductDto } from "@/apis/__generated/model/dto";
 import ProductCover from "@/components/product/product-cover.vue"
 import { api } from "@/utils/api-instance";
 import { usePageHelper } from "@/utils/page";
 import { ref } from "vue";
+
+import { CartItem, useCartStore } from "@/components/cart/cart-store";
 
 //获取商品列表的分页数据
 const { pageData } = usePageHelper(
@@ -55,6 +58,21 @@ const handleChoose = (id:string) =>{
     console.log("拿到的是什么数据",chosenProduct.value)
   })
 }
+
+const cartStore = useCartStore();
+
+const handleAddSku = (
+  sku: ProductSkuFetcherDto["skuList"][0],
+  product: ProductSkuFetcherDto,
+) => {
+  cartStore.pushItem({ checked: true, count: 1, sku: sku, product });
+  console.log("添加到购物车的数据：", {
+  skuId: sku.id,
+  productId: product.id,
+  price: sku.price,
+  selectedAttributes: sku.values,
+});
+};
 
 </script>
 <style lang="scss">
