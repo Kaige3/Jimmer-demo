@@ -10,7 +10,6 @@ declare module 'vue' {
     NutPopup: typeof import('@nutui/nutui-taro')['Popup']
     NutTag: typeof import('@nutui/nutui-taro')['Tag']
     ProductCover: typeof import('./src/components/product/product-cover.vue')['default']
-    ProductSkuDialog: typeof import('./src/components/product/product-sku-dialog.vue')['default']
     ProductSkuDialogCopy: typeof import('./src/components/product/product-sku-dialog-copy.vue')['default']
     UserAvatar: typeof import('./src/components/user/user-avatar.vue')['default']
   }

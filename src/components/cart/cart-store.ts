@@ -2,13 +2,16 @@ import { ProductDto } from "@/apis/__generated/model/dto";
 import Taro from "@tarojs/taro";
 import { defineStore } from "pinia";
 import { computed, ref, watchEffect } from "vue";
+
 type ProductSkuFetcherDto = ProductDto["ProductRepository/PRODUCT_SKU_FETCHER"];
+
 export type CartItem = {
   product: ProductSkuFetcherDto;
   sku: ProductSkuFetcherDto["skuList"][0];
   count: number;
   checked: boolean;
 };
+
 export const useCartStore = defineStore("cart", () => {
   // 购物车是否显示
   const visible = ref(false);
@@ -39,6 +42,7 @@ export const useCartStore = defineStore("cart", () => {
     if (index === -1) {
       cartList.value.push(cartItem);
     } else {
+      // 增加物品数量
       plusItem(index);
     }
   };
