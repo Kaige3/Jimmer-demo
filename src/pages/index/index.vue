@@ -5,7 +5,7 @@
  v-if="chosenProduct"
  :key="chosenProduct.id"
  :product="chosenProduct"
-  v-model="dialogVisible"
+  v-model:visible="dialogVisible"
    @addSku="handleAddSku"
  >
 
@@ -21,6 +21,7 @@
       />
     </div>
   </div>
+  <cart-list></cart-list>
 
 </template>
 
@@ -31,6 +32,7 @@ import ProductCover from "@/components/product/product-cover.vue"
 import { api } from "@/utils/api-instance";
 import { usePageHelper } from "@/utils/page";
 import { ref } from "vue";
+import cartList from "@/components/cart/cart-list.vue";
 
 import { CartItem, useCartStore } from "@/components/cart/cart-store";
 

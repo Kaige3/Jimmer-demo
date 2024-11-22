@@ -7,9 +7,12 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    CartList: typeof import('./src/components/cart/cart-list.vue')['default']
+    NutCheckbox: typeof import('@nutui/nutui-taro')['Checkbox']
     NutPopup: typeof import('@nutui/nutui-taro')['Popup']
     NutTag: typeof import('@nutui/nutui-taro')['Tag']
     ProductCover: typeof import('./src/components/product/product-cover.vue')['default']
+    ProductRow: typeof import('./src/components/product/product-row.vue')['default']
     ProductSkuDialogCopy: typeof import('./src/components/product/product-sku-dialog-copy.vue')['default']
     UserAvatar: typeof import('./src/components/user/user-avatar.vue')['default']
   }

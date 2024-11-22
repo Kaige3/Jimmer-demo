@@ -4,7 +4,9 @@
       <nut-popup
         :visible="visible"
         round
+        :catch-move="true"
         pop-class="product-popup"
+        @update:visible="(value) => emit('update:visible', value)"
       >
         <scroll-view :scroll-y="true" class="product-section" v-if="activeSku">
           <!-- 图片 -->
@@ -80,9 +82,9 @@ type Sku = ProductSkuFetcherDto["skuList"][0];
 type Attribute = ProductSkuFetcherDto["attributes"][0] & { activeValue: string };
 
 // 模态框的状态
-const visible = defineModel({
-  type: Boolean,
-});
+// const visible = defineModel({
+//   type: Boolean,
+// });
 // const closeDialog = () => {
 //   visible.value = false;
 // };
@@ -90,11 +92,11 @@ const visible = defineModel({
 // 接收父组件传递的数据
 const props = defineProps<{
   product: ProductSkuFetcherDto;
-  // visible:boolean;
+  visible:boolean;
 }>();
 
 const emit = defineEmits<{
-  // "update:visible": [visible: boolean]; //具名元组语法
+  "update:visible": [visible: boolean]; //具名元组语法
   addSku:[sku:Sku,product:ProductSkuFetcherDto];
 }>();
 
@@ -132,7 +134,8 @@ const activeSku = props.product.skuList[0];
 
 const addProduct = () => {
   // 关闭模态框
-  visible.value = false;
+  // visible.value = false;
+  emit("update:visible",false)
   const selectedValues = attributes.map((attr) => attr.activeValue);
 
 // 匹配选中的 SKU

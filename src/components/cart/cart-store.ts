@@ -46,7 +46,7 @@ export const useCartStore = defineStore("cart", () => {
       plusItem(index);
     }
   };
-  // 购物车减少商品数量
+  // 购物车增加商品数量
   const plusItem = (index: number) => {
     cartList.value[index].count++;
   };
