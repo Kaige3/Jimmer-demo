@@ -8,8 +8,6 @@
   v-model:visible="dialogVisible"
    @addSku="handleAddSku"
  >
-
-
  </product-sku-dialog-copy>
 
 
@@ -21,7 +19,7 @@
       />
     </div>
   </div>
-  <cart-list></cart-list>
+  <cart-list @submit="handleSubmit"></cart-list>
 
 </template>
 
@@ -35,6 +33,7 @@ import { ref } from "vue";
 import cartList from "@/components/cart/cart-list.vue";
 
 import { CartItem, useCartStore } from "@/components/cart/cart-store";
+import Taro from "@tarojs/taro";
 
 //获取商品列表的分页数据
 const { pageData } = usePageHelper(
@@ -75,6 +74,16 @@ const handleAddSku = (
   selectedAttributes: sku.values,
 });
 };
+
+const handleSubmit = (cartItems: CartItem[]) =>{
+  Taro.navigateTo({
+    url:"/pages/order/order-create",
+    success:()=>{
+      Taro.eventCenter.trigger("submitCart",cartItems)
+      console.log("接收到从购物车提交的数据",cartItems)
+    }
+  })
+}
 
 </script>
 <style lang="scss">

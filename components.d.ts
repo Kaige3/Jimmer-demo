@@ -7,7 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AddressRow: typeof import('./src/components/address/address-row.vue')['default']
     CartList: typeof import('./src/components/cart/cart-list.vue')['default']
+    NutActionSheet: typeof import('@nutui/nutui-taro')['ActionSheet']
     NutCheckbox: typeof import('@nutui/nutui-taro')['Checkbox']
     NutPopup: typeof import('@nutui/nutui-taro')['Popup']
     NutTag: typeof import('@nutui/nutui-taro')['Tag']
