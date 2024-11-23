@@ -56,7 +56,7 @@
       <div class="left">
         <div class="price">￥{{totalPrice}}</div>
       </div>
-      <div class="right">
+      <div class="right" @click="submit">
         去结算
       </div>
     </div>
@@ -66,10 +66,19 @@
 <script setup lang="ts">
 
 import { storeToRefs } from 'pinia';
-import { useCartStore } from './cart-store';
+import { type CartItem, useCartStore } from './cart-store';
 import { computed } from 'vue';
 import { Del, Minus, Plus } from "@nutui/icons-vue-taro";
 import  ProductRow  from "../product/product-row.vue"
+
+//定义子组件需要提交的事件
+const emit = defineEmits<{ submit:[ value:CartItem[]]}>();
+
+//在父组件 需要自定义函数来接收 submit 传送的 checkedItems
+const submit = ()=>{
+  emit("submit",cartStore.checkedItems);
+}
+
 const cartStore = useCartStore();
 // 变量值
 const { visible,checkedItems,totalPrice } = storeToRefs(cartStore)

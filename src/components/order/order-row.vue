@@ -1,11 +1,13 @@
 <template>
-  订单也买你
+  <div>
+
+  </div>
 </template>
 
 <script setup lang="ts">
 
 </script>
 
-<style lang="scss">
+<style scoped>
 
 </style>

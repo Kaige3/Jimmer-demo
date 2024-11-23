@@ -13,6 +13,7 @@ declare module 'vue' {
     NutCheckbox: typeof import('@nutui/nutui-taro')['Checkbox']
     NutPopup: typeof import('@nutui/nutui-taro')['Popup']
     NutTag: typeof import('@nutui/nutui-taro')['Tag']
+    OrderRow: typeof import('./src/components/order/order-row.vue')['default']
     ProductCover: typeof import('./src/components/product/product-cover.vue')['default']
     ProductRow: typeof import('./src/components/product/product-row.vue')['default']
     ProductSkuDialogCopy: typeof import('./src/components/product/product-sku-dialog-copy.vue')['default']
