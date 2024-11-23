@@ -34,13 +34,61 @@ import cartList from "@/components/cart/cart-list.vue";
 
 import { CartItem, useCartStore } from "@/components/cart/cart-store";
 import Taro from "@tarojs/taro";
+import { body } from "@nutui/nutui-taro/dist/types/utils";
+import { useHomeStore } from "@/stores/home-store";
+import { hostname } from "os";
 
+const homeStore = useHomeStore();
 //获取商品列表的分页数据
 const { pageData } = usePageHelper(
   api.productController.query,
   api.productSkuController,
   {},
 );
+
+Taro.useLoad(() => {
+  Taro.login({
+    success: function (loginRes) {
+      // 调用微信登录接口
+      api.authController
+        .authByWecChat({
+          body: {
+            loginCode: loginRes.code,
+          },
+        })
+        .then((res) => {
+          // 判断接口是否成功返回有效 token
+          if (res && res.tokenValue) {
+            Taro.setStorageSync("token", res.tokenValue);
+            homeStore.getUserInfo();
+          } else {
+            // 返回无效 token 的处理逻辑
+            Taro.showToast({
+              title: "登录失败，请稍后重试",
+              icon: "none",
+            });
+          }
+        })
+        .catch((err) => {
+          // 捕获接口调用异常
+          console.error("调用微信登录接口异常：", err);
+          Taro.showToast({
+            title: "网络异常，请检查网络设置",
+            icon: "none",
+          });
+        });
+    },
+    fail: function (err) {
+      // Taro.login 失败的处理
+      console.error("微信登录失败：", err);
+      Taro.showToast({
+        title: "获取登录凭证失败，请重试",
+        icon: "none",
+      });
+    },
+  });
+});
+
 
 // 默认不弹出 商品详情框
 const dialogVisible = ref(false);

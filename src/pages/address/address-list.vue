@@ -47,69 +47,85 @@ const activeAddress = ref({} as AddressDto["AddressRepository/SIMPLE_FETCHER"])
 
 // const addressList = ref<AddressDto["AddressRepository/SIMPLE_FETCHER"][]>([]);
 
-const handleDelete=(value:string)=>{
-  const index = addressList.value.findIndex(item => item.id === value);
-  if (index !== -1) {
-    addressList.value.splice(index, 1);
-  }
+const handleDelete=(id:string)=>{
+  // const index = addressList.value.findIndex(item => item.id === value);
+  // if (index !== -1) {
+  //   addressList.value.splice(index, 1);
+  // }
+  Taro.showModal({
+    title:"是否确认删除",
+    showCancel:true,
+    success:({confirm})=>{
+      if(confirm){
+        api.addressController.delete({body:[id]}).then(()=>{
+          loadData();
+        })
+      }
+    }
+  })
 }
 
-  const addressList = ref([
-  {
-    id: "1",
-    createdTime: "2024-01-01T12:00:00Z",
-    editedTime: "2024-01-01T12:00:00Z",
-    latitude: 39.9042,
-    longitude: 116.4074,
-    address: "北京市朝阳区建国门外大街1号",
-    details: "北京朝阳区某商业大厦A座",
-    province: "北京",
-    city: "北京",
-    district: "朝阳区",
-    phoneNumber: "13800138000",
-    realName: "张三",
-    top: true
-  },
-  {
-    id: "2",
-    createdTime: "2024-02-01T12:00:00Z",
-    editedTime: "2024-02-01T12:00:00Z",
-    latitude: 31.2304,
-    longitude: 121.4737,
-    address: "上海市浦东新区陆家嘴金融街101号",
-    details: "上海浦东新区某大厦",
-    province: "上海",
-    city: "上海",
-    district: "浦东新区",
-    phoneNumber: "13900139000",
-    realName: "李四",
-    top: false
-  },
-  {
-    id: "3",
-    createdTime: "2024-03-01T12:00:00Z",
-    editedTime: "2024-03-01T12:00:00Z",
-    latitude: 23.1291,
-    longitude: 113.2644,
-    address: "广州市天河区体育东路123号",
-    details: "广州市天汇大厦",
-    province: "广东",
-    city: "广州",
-    district: "天河区",
-    phoneNumber: "13700137000",
-    realName: "王五",
-    top: false
-  }
-]);
+//   const addressList = ref([
+//   {
+//     id: "1",
+//     createdTime: "2024-01-01T12:00:00Z",
+//     editedTime: "2024-01-01T12:00:00Z",
+//     latitude: 39.9042,
+//     longitude: 116.4074,
+//     address: "北京市朝阳区建国门外大街1号",
+//     details: "北京朝阳区某商业大厦A座",
+//     province: "北京",
+//     city: "北京",
+//     district: "朝阳区",
+//     phoneNumber: "13800138000",
+//     realName: "张三",
+//     top: true
+//   },
+//   {
+//     id: "2",
+//     createdTime: "2024-02-01T12:00:00Z",
+//     editedTime: "2024-02-01T12:00:00Z",
+//     latitude: 31.2304,
+//     longitude: 121.4737,
+//     address: "上海市浦东新区陆家嘴金融街101号",
+//     details: "上海浦东新区某大厦",
+//     province: "上海",
+//     city: "上海",
+//     district: "浦东新区",
+//     phoneNumber: "13900139000",
+//     realName: "李四",
+//     top: false
+//   },
+//   {
+//     id: "3",
+//     createdTime: "2024-03-01T12:00:00Z",
+//     editedTime: "2024-03-01T12:00:00Z",
+//     latitude: 23.1291,
+//     longitude: 113.2644,
+//     address: "广州市天河区体育东路123号",
+//     details: "广州市天汇大厦",
+//     province: "广东",
+//     city: "广州",
+//     district: "天河区",
+//     phoneNumber: "13700137000",
+//     realName: "王五",
+//     top: false
+//   }
+// ]);
 
 // 打印查看结果
-console.log(addressList);
+// console.log(addressList);
+
+const addressList = ref<AddressDto["AddressRepository/SIMPLE_FETCHER"][]>()
 
 const loadData = ()=>{
   api.addressController.getUserAddress().then((res)=>{
     addressList.value = res;
   })
 }
+Taro.useDidShow(()=>{
+  loadData();
+})
 // 菜单操作
 const actionMap = {
   ["复制地址"]:()=>{

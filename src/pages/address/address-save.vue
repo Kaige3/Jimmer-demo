@@ -89,7 +89,7 @@ const address = ref<AddressInput>({
 const submit = ()=>{
   api.addressController.save({body:address.value}).then((res)=>{
     Taro.showToast({title:"提交成功",icon:"success"});
-    Taro.navigateBack;
+    Taro.navigateBack();
   })
 }
 
