@@ -1,11 +1,11 @@
 export default defineAppConfig({
   pages: [
-    "pages/address/address-save",
 
     "pages/address/address-list",
     "pages/index/index",
     "pages/user/index",
     "pages/order/order-create",
+    "pages/address/address-save",
     // "pages/order/order-list",
     // "pages/order/order-details",
   ],

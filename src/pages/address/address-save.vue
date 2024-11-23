@@ -123,6 +123,14 @@ Taro.useDidShow(()=>{
   address.value = {...address.value,...chooseAddress}
 })
 
+Taro.useLoad((ops:any)=>{
+  if(ops.id){
+    api.addressController.findById({id:ops.id}).then((res)=>{
+      address.value = res;
+    })
+  }
+})
+
 
 </script>
 
