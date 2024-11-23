@@ -52,7 +52,7 @@
           <div class="name">我的订单</div>
         </div>
         <!-- 我的地址 -->
-        <div class="function" @tap="switchPage('/pages/order/order-list')">
+        <div class="function" @tap="switchPage('/pages/address/address-list')">
           <image class="icon"
           mode="'widthFill'"
           src="../../assets/icons/address.png"
@@ -60,7 +60,7 @@
           <div class="name">我的地址</div>
         </div>
          <!-- 反馈建议 -->
-        <div class="function" @tap="switchPage('/pages/order/order-list')">
+        <div class="function" @tap="switchPage('/pages/address/address-list')">
           <image class="icon"
           mode="'widthFill'"
           src="../../assets/icons/feedback.png"

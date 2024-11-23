@@ -16,12 +16,12 @@
       </template>
     </address-row>
      <!-- 底部添加新增收获地址 -->
-      <div class="add-address" @click="switchPage('/pages/address/address-save')">
-        <div class="btn">
-          <plus></plus>
-          添加收获地址
-        </div>
+    <div class="add-address" @click="switchPage('/pages/address/address-save')">
+      <div class="btn">
+        <plus></plus>
+        添加收获地址
       </div>
+    </div>
       <!-- 长按 弹出选项框 -->
        <nut-action-sheet
        :v-model:visible="show"
@@ -145,6 +145,25 @@ page {
     .edit{
       margin-left: 20px;
     }
+    .add-address{
+      border-top: 1px solid rgba($color: #000000, $alpha: 0.05);
+      box-shadow: 10rpx -10rpx 10rpx rgba($color: #000000, $alpha: 0.05);
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding: 30rpx 0 60rpx 0;
+      .btn{
+        margin: auto;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        background-image: linear-gradient(#fcd956, #f5d131);
+        width: 600rpx;
+        padding: 20rpx 0;
+        border-radius: 10rpx;
+      }
+    }
+
 }
 </style>
 

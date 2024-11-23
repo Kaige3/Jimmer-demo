@@ -15,7 +15,6 @@
       </div>
     </div>
     <slot name="operation"></slot>
-
   </div>
 </template>
 
