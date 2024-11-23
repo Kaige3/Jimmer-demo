@@ -124,6 +124,12 @@ const handleAddSku = (
 };
 
 const handleSubmit = (cartItems: CartItem[]) =>{
+  if(cartItems.length<1){
+    Taro.showModal({
+      title:"穷逼,去买点东西吧",
+      showCancel:false,
+    })
+  }else{
   Taro.navigateTo({
     url:"/pages/order/order-create",
     success:()=>{
@@ -131,6 +137,7 @@ const handleSubmit = (cartItems: CartItem[]) =>{
       console.log("接收到从购物车提交的数据",cartItems)
     }
   })
+ }
 }
 
 </script>
