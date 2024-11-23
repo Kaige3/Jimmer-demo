@@ -24,10 +24,10 @@
     </div>
       <!-- 长按 弹出选项框 -->
        <nut-action-sheet
-       :v-model:visible="show"
+       v-model:visible="show"
        :menu-items="actions"
-       >
-       </nut-action-sheet>
+       @choose="handleActionChoose"
+       />
   </div>
 </template>
 
@@ -40,8 +40,8 @@ import { AddressDto } from "@/apis/__generated/model/dto"
 import Taro from '@tarojs/taro';
 import { api } from '@/utils/api-instance';
 import addressRow from '@/components/address/address-row.vue';
+import { MenuItemOption } from '@nutui/nutui-taro/dist/types/__VUE/menu/types';
 const show = ref(false);
-const actions = [{name:"赋值地址"},{name:"设为默认"}]
 
 const activeAddress = ref({} as AddressDto["AddressRepository/SIMPLE_FETCHER"])
 
@@ -126,23 +126,38 @@ const loadData = ()=>{
 Taro.useDidShow(()=>{
   loadData();
 })
+type ActionItem = {name:string};
+type Actions = ActionItem[];
+
+const actions = [{name:"复制地址"},{name:"设为默认"}] as Actions;
+
 // 菜单操作
 const actionMap = {
-  ["复制地址"]:()=>{
+  ["复制地址"]: () => {
+    // 复制地址到剪贴板
     const address = activeAddress.value;
-    const value = `收件人:${address.realName}\n手机号:${address.phoneNumber}\n详细地址:${address.address} ${address.details}`
-    Taro.setClipboardData({ data:value})
+    const value = `收件人：${address.realName}\n手机号码：${address.phoneNumber}\n详细地址：${address.address} ${address.details}`;
+    Taro.setClipboardData({ data: value });
   },
-  ["设置为默认"]:()=>{
-    api.addressController.top({id:activeAddress.value.id}).then(()=>{
+  ["设为默认"]: () => {
+    // 设置默认地址
+    api.addressController.top({ id: activeAddress.value.id }).then(() => {
       loadData();
-    })
-  }
+    });
+  },
+};
+// 选择菜单后触发
+const handleActionChoose =(action:ActionItem)=>{
+  actionMap[action.name]();
 }
-const showActionSheet = (value:AddressDto['AddressRepository/SIMPLE_FETCHER']) =>{
-  activeAddress.value= value;
+const showActionSheet = (
+  address:AddressDto['AddressRepository/SIMPLE_FETCHER']) =>{
+  activeAddress.value= address;
   show.value = true;
+  console.log("长安了吗",show.value)
 }
+
+
 
 
 
