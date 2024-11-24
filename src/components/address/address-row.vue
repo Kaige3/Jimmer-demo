@@ -21,9 +21,10 @@
 <script setup lang="ts">
 import { AddressDto } from '@/apis/__generated/model/dto';
 // 接收父组件传递的信息
-defineProps<{
-  address:AddressDto["AddressRepository/SIMPLE_FETCHER"]
-}>();
+// defineProps<{
+//   address:AddressDto["AddressRepository/SIMPLE_FETCHER"]
+// }>();
+defineProps<{ address: AddressDto["AddressRepository/SIMPLE_FETCHER"] }>();
 
 </script>
 

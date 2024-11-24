@@ -1,7 +1,7 @@
 <template>
   <div class="order-submit">
-    <div class="address">
-      <nut-cell is-link center>
+    <div class="address" v-if="address">
+      <nut-cell is-link center @click="addressChooseVisible = true">
         <!-- 左侧图标 -->
         <template #icon>
           <Location2
@@ -22,6 +22,18 @@
         </template>
       </nut-cell>
     </div>
+    <!-- 选择地址 -->
+     <!-- <address-row
+     v-model:visible="visible"
+     v-model:address="address!"
+     >
+     </address-row> -->
+     <address-choose
+     v-model:visible2="addressChooseVisible"
+     @choose="handleAddressChose"
+     >
+
+     </address-choose>
     <!-- 渲染商品列表 -->
     <div class="product-list">
       <product-row
@@ -68,6 +80,12 @@
           <nut-button type="danger" @click="saveOrder">提交订单</nut-button>
         </div>
       </div>
+      <address-choose
+      v-model:visible2="addressChooseVisible"
+      @choose="handleAddressChose"
+      >
+
+      </address-choose>
     </div>
 </template>
 
@@ -81,17 +99,23 @@ import { RectRight } from '@nutui/icons-vue-taro';
 import productRow from '@/components/product/product-row.vue';
 import { CartItem } from '@/components/cart/cart-store';
 import { api } from '@/utils/api-instance';
-type addressM =Pick<AddressDto["AddressRepository/SIMPLE_FETCHER"],
-"address" | "details"| "realName" | "top"|"phoneNumber"|"id">
+import addressChoose from '../address/address-choose.vue';
+// type addressM =AddressDto["AddressRepository/SIMPLE_FETCHER"];
 
-const address = ref<addressM>({
-  id:"1",
-  address:"河南",
-  details:"新校区",
-  realName:"kaige",
-  top:false,
-  phoneNumber:"123123123123"
-});
+const address = ref<AddressDto["AddressRepository/SIMPLE_FETCHER"]>();
+const addressChooseVisible = ref(false);
+
+const handleAddressChose= (value: AddressDto["AddressRepository/SIMPLE_FETCHER"])=>{
+  address.value = value;
+};
+// const address = ref<addressM>({
+//   id:"1",
+//   address:"河南",
+//   details:"新校区",
+//   realName:"kaige",
+//   top:false,
+//   phoneNumber:"123123123123"
+// });
 
 const cartItems = ref<CartItem[]>([]);
 
